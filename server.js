@@ -10,6 +10,7 @@ let MASTER_PLAYERS = JSON.parse(fs.readFileSync("shuffled_players.json", "utf8")
 const app = express();
 const server = http.createServer(app);
 
+// Enable CORS for socket.io (Render friendly)
 const io = new Server(server, {
   cors: { origin: "*", methods: ["GET", "POST"] }
 });
@@ -21,22 +22,36 @@ app.use(express.static("public"));
 =========================== */
 let rooms = {};
 
+/* ===========================
+   UTILITIES
+=========================== */
+
 function generateRoomId() {
   return Math.random().toString(36).substring(2, 8).toUpperCase();
 }
 
+function pushLog(room, type, text) {
+  // log entries are objects {type, text}
+  room.log.push({ type, text });
+  // keep log size reasonable
+  if (room.log.length > 1000) room.log.splice(0, room.log.length - 1000);
+}
+
+/* Timer reset helper */
 function resetTimers(room) {
   if (room.initialTimer) clearInterval(room.initialTimer);
   if (room.bidTimer) clearInterval(room.bidTimer);
+  room.initialTimer = null;
+  room.bidTimer = null;
   room.initialTimeLeft = 60;
   room.bidTimeLeft = 30;
-  room.skippedPlayers = []; // reset skip list per player auction
+  room.skippedPlayers = []; // skip list per-auction
 }
 
 function broadcastRoomState(roomId) {
   const room = rooms[roomId];
   if (!room) return;
-  // Send players, but we don't want to expose socket IDs to UI logic except keys used by client
+  // send the whole players object (keys are socket IDs)
   io.to(roomId).emit("roomState", {
     players: room.players,
     hostId: room.hostId,
@@ -52,6 +67,7 @@ function broadcastRoomState(roomId) {
   });
 }
 
+/* Picks and removes a random player for a given position from room.availablePlayers */
 function pickRandomPlayerByPosition(room, position) {
   const candidates = room.availablePlayers.filter(p => p.position === position);
   if (candidates.length === 0) return null;
@@ -61,6 +77,10 @@ function pickRandomPlayerByPosition(room, position) {
   room.availablePlayers = room.availablePlayers.filter(p => p !== player);
   return player;
 }
+
+/* ===========================
+   TIMERS AND AUCTION HELPERS
+=========================== */
 
 function startInitialTimer(roomId) {
   const room = rooms[roomId];
@@ -96,14 +116,7 @@ function startBidTimer(roomId) {
   }, 1000);
 }
 
-function pushLog(room, type, text) {
-  // log entries are objects {type, text}
-  room.log.push({ type, text });
-  // keep log size reasonable
-  if (room.log.length > 1000) room.log.splice(0, room.log.length - 1000);
-}
-
-/* assign or unsold, then no auto-spin (host must press) */
+/* Finalize current player: assign to winner or mark unsold. NO auto-spin. */
 function endCurrentPlayer(roomId) {
   const room = rooms[roomId];
   if (!room) return;
@@ -111,6 +124,7 @@ function endCurrentPlayer(roomId) {
   const bidderId = room.currentBidder;
 
   if (bidderId && player) {
+    // If bidder still present in players list, assign; otherwise mark unsold
     if (!room.players[bidderId]) {
       pushLog(room, "info", `Winner disconnected; ${player.name} unsold`);
     } else {
@@ -125,7 +139,7 @@ function endCurrentPlayer(roomId) {
     pushLog(room, "unsold", `${player.name} was unsold`);
   }
 
-  // Reset current player (NO auto spin)
+  // Reset auction state for this player (host must manually spin next)
   room.currentPlayer = null;
   room.currentBid = 0;
   room.currentBidder = null;
@@ -135,6 +149,7 @@ function endCurrentPlayer(roomId) {
   broadcastRoomState(roomId);
 }
 
+/* Spin wheel: server picks index and position, emits wheelResult, sets player after animation */
 function spinWheel(roomId) {
   const room = rooms[roomId];
   if (!room) return;
@@ -144,6 +159,7 @@ function spinWheel(roomId) {
     return;
   }
 
+  // Begin spin
   room.spinInProgress = true;
   room.auctionActive = false;
   room.currentPlayer = null;
@@ -153,14 +169,15 @@ function spinWheel(roomId) {
   resetTimers(room);
   broadcastRoomState(roomId);
 
+  // positions array; must match client label order
   const positions = ["GK", "CB", "RB", "LB", "RW", "CF", "AM", "LW", "CM", "DM"];
   const chosenIndex = Math.floor(Math.random() * positions.length);
   const position = positions[chosenIndex];
 
-  // pick player (removes from pool) - may be null if none left for position
+  // pick player (removes from pool)
   const player = pickRandomPlayerByPosition(room, position);
 
-  // tell clients which index to animate to and the position
+  // inform clients which slice to animate to
   io.to(roomId).emit("wheelResult", { index: chosenIndex, position });
 
   // after wheel animation (2.5s), reveal player and start timers
@@ -185,11 +202,13 @@ function spinWheel(roomId) {
 }
 
 /* ===========================
-   SOCKET LOGIC
+   SOCKET HANDLERS
 =========================== */
+
 io.on("connection", (socket) => {
   console.log("New connection:", socket.id);
 
+  /* ---- Create Room ---- */
   socket.on("createRoom", (name) => {
     const roomId = generateRoomId();
     rooms[roomId] = {
@@ -209,33 +228,82 @@ io.on("connection", (socket) => {
       log: [],
       skippedPlayers: []
     };
+
     rooms[roomId].players[socket.id] = {
       name,
       balance: 1000,
-      team: []
+      team: [],
+      active: true,
+      disconnected: false
     };
+
     socket.join(roomId);
     socket.emit("roomJoined", roomId);
     pushLog(rooms[roomId], "info", `${name} (host) created the room`);
     broadcastRoomState(roomId);
   });
 
+  /* ---- Join Room (with reconnect-by-name) ---- */
   socket.on("joinRoom", ({ roomId, name }) => {
     const room = rooms[roomId];
     if (!room) return socket.emit("error", "Room not found");
-    if (room.players[socket.id]) return socket.emit("roomJoined", roomId); // already joined
-    if (Object.keys(room.players).length >= 6) return socket.emit("error", "Room is full");
+
+    // If socket already has an entry (rare), return
+    if (room.players[socket.id]) return socket.emit("roomJoined", roomId);
+
+    // Try to find an existing player with the same name
+    let existingPid = null;
+    for (const pid in room.players) {
+      if (room.players[pid] && room.players[pid].name === name) {
+        existingPid = pid;
+        break;
+      }
+    }
+
+    if (existingPid) {
+      // restore previous player's data onto this new socket id
+      const prev = room.players[existingPid];
+
+      room.players[socket.id] = {
+        name: prev.name,
+        balance: prev.balance,
+        team: prev.team,
+        active: true,
+        disconnected: false
+      };
+
+      // remove old socket key if different
+      if (existingPid !== socket.id) {
+        try { delete room.players[existingPid]; } catch (e) { /* ignore */ }
+      }
+
+      socket.join(roomId);
+      socket.emit("roomJoined", roomId);
+      pushLog(room, "info", `${name} rejoined the room`);
+      broadcastRoomState(roomId);
+      return;
+    }
+
+    // New player
+    if (Object.keys(room.players).length >= 6) {
+      return socket.emit("error", "Room is full");
+    }
+
     room.players[socket.id] = {
       name,
       balance: 1000,
-      team: []
+      team: [],
+      active: true,
+      disconnected: false
     };
+
     socket.join(roomId);
     socket.emit("roomJoined", roomId);
     pushLog(room, "info", `${name} joined the room`);
     broadcastRoomState(roomId);
   });
 
+  /* ---- Start Spin (Host Only) ---- */
   socket.on("startSpin", (roomId) => {
     const room = rooms[roomId];
     if (!room) return;
@@ -244,12 +312,13 @@ io.on("connection", (socket) => {
     spinWheel(roomId);
   });
 
+  /* ---- Bid ---- */
   socket.on("bid", (roomId) => {
     const room = rooms[roomId];
     if (!room || !room.auctionActive || !room.currentPlayer) return;
     if (!room.players[socket.id]) return;
 
-    // If player has skipped this round, they cannot bid
+    // If player has skipped this round, reject
     if (room.skippedPlayers && room.skippedPlayers.includes(socket.id)) {
       socket.emit("error", "You skipped this round and cannot bid again for this player.");
       return;
@@ -269,12 +338,12 @@ io.on("connection", (socket) => {
       return;
     }
 
-    // first bid: stop initial timer and start bid timer
+    // First bid: stop initial timer and start bid timer
     if (room.currentBid === 0) {
       if (room.initialTimer) { clearInterval(room.initialTimer); room.initialTimer = null; }
       startBidTimer(roomId);
     } else {
-      // reset bid timer to 30s
+      // reset bid timer
       room.bidTimeLeft = 30;
     }
 
@@ -284,6 +353,7 @@ io.on("connection", (socket) => {
     broadcastRoomState(roomId);
   });
 
+  /* ---- Skip ---- */
   socket.on("skip", (roomId) => {
     const room = rooms[roomId];
     if (!room || !room.auctionActive || !room.currentPlayer) return;
@@ -294,33 +364,41 @@ io.on("connection", (socket) => {
       pushLog(room, "skip", `${room.players[socket.id].name} skipped ${room.currentPlayer.name}`);
     }
 
-    // if everyone skipped -> end
+    // If everyone skipped -> end current player
     const totalPlayers = Object.keys(room.players).length;
     if (room.skippedPlayers.length === totalPlayers) {
       if (room.initialTimer) { clearInterval(room.initialTimer); room.initialTimer = null; }
       if (room.bidTimer) { clearInterval(room.bidTimer); room.bidTimer = null; }
       endCurrentPlayer(roomId);
     }
+
     broadcastRoomState(roomId);
   });
 
+  /* ---- Disconnect ----
+     Do NOT delete player data. Mark as disconnected/inactive.
+     When they return with same name, joinRoom will restore them.
+  */
   socket.on("disconnect", () => {
     for (const roomId in rooms) {
       const room = rooms[roomId];
       if (!room) continue;
       if (room.players[socket.id]) {
         const name = room.players[socket.id].name;
-        // preserve nothing for simplicity: remove player entry so other players see them gone
-        delete room.players[socket.id];
+        // mark inactive and disconnected
+        room.players[socket.id].active = false;
+        room.players[socket.id].disconnected = true;
         pushLog(room, "info", `${name} disconnected`);
-        // if host left -> transfer host to first remaining player (if any)
+
+        // Host left -> transfer host to first remaining player (if any)
         if (room.hostId === socket.id) {
-          const remaining = Object.keys(room.players);
+          const remaining = Object.keys(room.players).filter(pid => pid !== socket.id);
           room.hostId = remaining.length ? remaining[0] : null;
           if (room.hostId && room.players[room.hostId]) {
             pushLog(room, "info", `${room.players[room.hostId].name} is now host`);
           }
         }
+
         broadcastRoomState(roomId);
       }
     }
@@ -331,4 +409,6 @@ io.on("connection", (socket) => {
    START SERVER
 =========================== */
 const PORT = process.env.PORT || 3000;
-server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+server.listen(PORT, () => {
+  console.log("Server running on port " + PORT);
+});
