@@ -73,14 +73,14 @@ body{ margin:0; font-family:Arial,Helvetica,sans-serif; background:#fff; color:#
 
 /* Buttons */
 .buttons-box{ display:flex; gap:10px; margin-bottom:12px; }
-.bid-btn{ background:var(--bid-green); color:#fff; border:none; padding:12px; border-radius:10px; font-weight:700; cursor:pointer; }
+.bid-btn{ background:var(--bid-navy); color:#fff; border:none; padding:12px; border-radius:10px; font-weight:700; cursor:pointer; }
 .skip-btn{ background:var(--skip-red); color:#fff; border:none; padding:12px; border-radius:10px; font-weight:700; cursor:pointer; }
 
 /* Log box */
 .log-box{ height:220px; overflow:auto; border:2px solid #111; padding:10px; background:#fff; border-radius:8px; font-size:14px; }
 .log-entry{ margin-bottom:6px; padding:6px; border-radius:6px; display:inline-block; }
 .log-entry.info{ color:#111; background:transparent; }
-.log-entry.spin{ color: var(--navy); border-bottom:1px solid rgba(0,0,0,0.06); } /* navy */
+.log-entry.spin{ color: var(--black); border-bottom:1px solid rgba(0,0,0,0.06); } /* navy */
 .log-entry.skip{ color: var(--skip-red); } /* dark red */
 .log-entry.win{ color: var(--win-green); } /* dark green */
 .log-entry.unsold{ color:#444; }
