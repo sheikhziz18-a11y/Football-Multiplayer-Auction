@@ -1,0 +1,104 @@
+/* style.css - updated for labels, colors, blink, mobile tweaks */
+
+:root{
+  --bid-green: #0b6b2d; /* dark dark green */
+  --skip-red: #8b0000;  /* dark red */
+  --navy: #001f4d;
+  --win-green: #0b7a3f;
+}
+
+/* Reset */
+* { box-sizing: border-box; }
+body{ margin:0; font-family:Arial,Helvetica,sans-serif; background:#fff; color:#000; }
+
+/* Hidden helper */
+.hidden{ display:none !important; }
+
+/* LOGIN PAGE styles (kept minimal) */
+#loginPage{ width:100%; height:100vh; display:flex; align-items:center; justify-content:center; background:#0b0b0b; color:#fff; }
+.login-container{ width:100%; max-width:640px; text-align:center; }
+.title{ font-size:32px; font-weight:700; margin-bottom:16px; }
+.login-box{ background:#ffffff10; padding:18px; margin:10px; border-radius:10px; }
+.login-box input{ width:220px; padding:8px; margin:8px 0; border-radius:6px; border:1px solid #ccc; }
+.login-box button{ padding:10px 20px; background:#111; color:#fff; border:none; border-radius:8px; cursor:pointer; }
+
+/* AUCTION PAGE */
+#auctionPage{ padding:12px; min-height:100vh; background:#fff; }
+.top-bar{ display:flex; justify-content:space-between; align-items:center; padding:12px 6px; border-bottom:2px solid #000; font-weight:700; }
+.main-layout{ display:flex; gap:18px; padding:18px; align-items:flex-start; }
+.left-panel{ flex:1.2; text-align:center; }
+.right-panel{ flex:1; }
+
+/* Wheel container */
+.wheel-section{ position:relative; width:100%; display:flex; justify-content:center; align-items:center; flex-direction:column; }
+#wheel{ width:280px; height:280px; border-radius:50%; border:6px solid #222; background: conic-gradient(
+  #ffdddd 0deg 36deg,
+  #ddeeff 36deg 72deg,
+  #ddffdd 72deg 108deg,
+  #ffeecc 108deg 144deg,
+  #ffccdd 144deg 180deg,
+  #ccddff 180deg 216deg,
+  #ddffee 216deg 252deg,
+  #ffddcc 252deg 288deg,
+  #eeddff 288deg 324deg,
+  #cceeff 324deg 360deg
+); transition: transform 2.5s cubic-bezier(.25,.8,.25,1); }
+
+/* wheel labels container - we'll position 10 labels around */
+.wheel-labels{ position:absolute; width:280px; height:280px; top:calc(50% - 140px); left:calc(50% - 140px); pointer-events:none; }
+.wheel-labels .slice-label{ position:absolute; width:120px; left:50%; top:50%; transform-origin: 0 0; text-align:left; font-weight:700; font-size:14px; color:#000; text-shadow:0 1px 0 rgba(255,255,255,0.8); }
+
+/* pointer */
+.wheel-pointer{ position:absolute; top:6px; left:50%; transform:translateX(-50%); font-size:26px; color:#c00; font-weight:900; }
+
+/* Player card */
+.player-card{ margin-top:20px; border:2px solid #111; border-radius:10px; padding:14px; background:#fafafa; font-size:18px; }
+.player-card #playerName{ font-size:20px; font-weight:700; }
+.player-card #playerPos{ color:#444; margin-top:6px; }
+.player-card #playerBase{ margin-top:8px; font-weight:600; }
+
+/* Timers */
+.timers-box{ display:flex; gap:10px; margin-bottom:12px; }
+.timer{ flex:1; border:2px solid #111; border-radius:8px; padding:8px; text-align:center; background:transparent; }
+.timer-label{ font-size:13px; color:#222; }
+#initialTimer, #bidTimer{ font-size:26px; font-weight:700; margin-top:6px; }
+
+/* blinking animation (only opacity flicker) */
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0.15; }
+  100% { opacity: 1; }
+}
+.blink { animation: blink 0.8s linear infinite; }
+
+/* Buttons */
+.buttons-box{ display:flex; gap:10px; margin-bottom:12px; }
+.bid-btn{ background:var(--bid-green); color:#fff; border:none; padding:12px; border-radius:10px; font-weight:700; cursor:pointer; }
+.skip-btn{ background:var(--skip-red); color:#fff; border:none; padding:12px; border-radius:10px; font-weight:700; cursor:pointer; }
+
+/* Log box */
+.log-box{ height:220px; overflow:auto; border:2px solid #111; padding:10px; background:#fff; border-radius:8px; font-size:14px; }
+.log-entry{ margin-bottom:6px; padding:6px; border-radius:6px; display:inline-block; }
+.log-entry.info{ color:#111; background:transparent; }
+.log-entry.spin{ color: var(--navy); border-bottom:1px solid rgba(0,0,0,0.06); } /* navy */
+.log-entry.skip{ color: var(--skip-red); } /* dark red */
+.log-entry.win{ color: var(--win-green); } /* dark green */
+.log-entry.unsold{ color:#444; }
+
+/* Summary */
+.summary-panel{ margin-top:16px; padding:10px; border-top:2px solid #111; }
+.summary-player{ padding:8px 6px; border-bottom:1px solid #eee; cursor:pointer; display:block; }
+.player-team{ margin-left:10px; display:none; font-size:14px; color:#222; }
+.player-team.show{ display:block; }
+
+/* MOBILE ADJUSTMENTS */
+@media (max-width:720px) {
+  .main-layout{ flex-direction:column; padding:12px; }
+  #wheel{ width:210px; height:210px; }
+  .wheel-labels{ width:210px; height:210px; top:calc(50% - 105px); left:calc(50% - 105px); }
+  .wheel-labels .slice-label{ font-size:12px; width:90px; }
+  .left-panel, .right-panel{ width:100%; }
+  .timers-box{ flex-direction:row; }
+  .buttons-box{ gap:8px; }
+  .log-box{ height:160px; }
+}
