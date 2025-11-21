@@ -1,0 +1,732 @@
+[
+  {
+    "name": "Osimhen",
+    "position": "CF",
+    "basePrice": 65
+  },
+  {
+    "name": "Van de Ven",
+    "position": "CB",
+    "basePrice": 40
+  },
+  {
+    "name": "Benjamin Sesko",
+    "position": "CF",
+    "basePrice": 55
+  },
+  {
+    "name": "Pope",
+    "position": "GK",
+    "basePrice": 30
+  },
+  {
+    "name": "Carvajal",
+    "position": "RB",
+    "basePrice": 30
+  },
+  {
+    "name": "Senesi",
+    "position": "CB",
+    "basePrice": 40
+  },
+  {
+    "name": "Ibrahima Konat\u00e9",
+    "position": "CB",
+    "basePrice": 45
+  },
+  {
+    "name": "Alisson Becker",
+    "position": "GK",
+    "basePrice": 70
+  },
+  {
+    "name": "Cunha",
+    "position": "AM",
+    "basePrice": 40
+  },
+  {
+    "name": "Luis Diaz",
+    "position": "LW",
+    "basePrice": 80
+  },
+  {
+    "name": "Gordon",
+    "position": "LW",
+    "basePrice": 50
+  },
+  {
+    "name": "Dayot Upamecano",
+    "position": "CB",
+    "basePrice": 40
+  },
+  {
+    "name": "Rodrygo",
+    "position": "RW",
+    "basePrice": 60
+  },
+  {
+    "name": "Viktor Gyoekeres",
+    "position": "CF",
+    "basePrice": 65
+  },
+  {
+    "name": "Jonathan Tah",
+    "position": "CB",
+    "basePrice": 30
+  },
+  {
+    "name": "Frenkie De Jong",
+    "position": "DM",
+    "basePrice": 60
+  },
+  {
+    "name": "Mike Maignan",
+    "position": "GK",
+    "basePrice": 30
+  },
+  {
+    "name": "Antonio R\u00fcdiger",
+    "position": "CB",
+    "basePrice": 25
+  },
+  {
+    "name": "Emiliano Martinez",
+    "position": "GK",
+    "basePrice": 50
+  },
+  {
+    "name": "Jao Neves",
+    "position": "DM",
+    "basePrice": 50
+  },
+  {
+    "name": "Eze",
+    "position": "AM",
+    "basePrice": 50
+  },
+  {
+    "name": "Bernando Silva",
+    "position": "AM",
+    "basePrice": 50
+  },
+  {
+    "name": "Pedro Neto",
+    "position": "RW",
+    "basePrice": 40
+  },
+  {
+    "name": "Writz",
+    "position": "RW",
+    "basePrice": 70
+  },
+  {
+    "name": "Neur",
+    "position": "GK",
+    "basePrice": 50
+  },
+  {
+    "name": "Malo Gusto",
+    "position": "RB",
+    "basePrice": 35
+  },
+  {
+    "name": "Alejandro Balde",
+    "position": "LB",
+    "basePrice": 40
+  },
+  {
+    "name": "Almada",
+    "position": "LW",
+    "basePrice": 30
+  },
+  {
+    "name": "Ronald Ara\u00fajo",
+    "position": "CB",
+    "basePrice": 50
+  },
+  {
+    "name": "Hakan Calhanoglu",
+    "position": "CM",
+    "basePrice": 35
+  },
+  {
+    "name": "Estevao",
+    "position": "RW",
+    "basePrice": 40
+  },
+  {
+    "name": "Mohammad Salah",
+    "position": "RW",
+    "basePrice": 80
+  },
+  {
+    "name": "Yann Sommer",
+    "position": "GK",
+    "basePrice": 20
+  },
+  {
+    "name": "Kane",
+    "position": "CF",
+    "basePrice": 80
+  },
+  {
+    "name": "J Alvarez",
+    "position": "CF",
+    "basePrice": 80
+  },
+  {
+    "name": "Diogo Dalot",
+    "position": "RB",
+    "basePrice": 35
+  },
+  {
+    "name": "Haaland",
+    "position": "CF",
+    "basePrice": 100
+  },
+  {
+    "name": "Unai Simon",
+    "position": "GK",
+    "basePrice": 30
+  },
+  {
+    "name": "Gibbs White",
+    "position": "AM",
+    "basePrice": 30
+  },
+  {
+    "name": "Tochouameni",
+    "position": "DM",
+    "basePrice": 40
+  },
+  {
+    "name": "Szoboszlai",
+    "position": "AM",
+    "basePrice": 65
+  },
+  {
+    "name": "Adeyemi",
+    "position": "RW",
+    "basePrice": 30
+  },
+  {
+    "name": "Garnacho",
+    "position": "LW",
+    "basePrice": 50
+  },
+  {
+    "name": "Gianluigi Donnarumma",
+    "position": "GK",
+    "basePrice": 70
+  },
+  {
+    "name": "Marcos Thuram",
+    "position": "CF",
+    "basePrice": 50
+  },
+  {
+    "name": "Carreras",
+    "position": "LB",
+    "basePrice": 40
+  },
+  {
+    "name": "Chalobah",
+    "position": "CB",
+    "basePrice": 40
+  },
+  {
+    "name": "Omar Marmoush",
+    "position": "AM",
+    "basePrice": 50
+  },
+  {
+    "name": "Gnabry",
+    "position": "RW",
+    "basePrice": 35
+  },
+  {
+    "name": "Trossard",
+    "position": "LW",
+    "basePrice": 40
+  },
+  {
+    "name": "Achraf Hakimi",
+    "position": "RB",
+    "basePrice": 60
+  },
+  {
+    "name": "Marquinhos",
+    "position": "CB",
+    "basePrice": 45
+  },
+  {
+    "name": "Szczesny",
+    "position": "GK",
+    "basePrice": 20
+  },
+  {
+    "name": "McTominay",
+    "position": "CM",
+    "basePrice": 30
+  },
+  {
+    "name": "Xavi Simmons",
+    "position": "AM",
+    "basePrice": 60
+  },
+  {
+    "name": "Alex Grimaldo",
+    "position": "LB",
+    "basePrice": 40
+  },
+  {
+    "name": "Courtois",
+    "position": "GK",
+    "basePrice": 80
+  },
+  {
+    "name": "Ruben Dias",
+    "position": "CB",
+    "basePrice": 60
+  },
+  {
+    "name": "Bruno Guimaraes",
+    "position": "DM",
+    "basePrice": 60
+  },
+  {
+    "name": "Milos Kerkez",
+    "position": "LB",
+    "basePrice": 25
+  },
+  {
+    "name": "Sane",
+    "position": "RW",
+    "basePrice": 40
+  },
+  {
+    "name": "Saka",
+    "position": "RW",
+    "basePrice": 80
+  },
+  {
+    "name": "Isac",
+    "position": "CF",
+    "basePrice": 65
+  },
+  {
+    "name": "Eduardo Camavinga",
+    "position": "CM",
+    "basePrice": 70
+  },
+  {
+    "name": "Moises Caicedo",
+    "position": "DM",
+    "basePrice": 65
+  },
+  {
+    "name": "Nico Williams",
+    "position": "LW",
+    "basePrice": 65
+  },
+  {
+    "name": "Jeremie Frimpong",
+    "position": "RB",
+    "basePrice": 45
+  },
+  {
+    "name": "Joshua Kimmich",
+    "position": "RB",
+    "basePrice": 45
+  },
+  {
+    "name": "Raphinha",
+    "position": "RW",
+    "basePrice": 90
+  },
+  {
+    "name": "Ilkay G\u00fcndogan",
+    "position": "CM",
+    "basePrice": 40
+  },
+  {
+    "name": "Cuti Romero",
+    "position": "CB",
+    "basePrice": 50
+  },
+  {
+    "name": "Jude Bellingham",
+    "position": "AM",
+    "basePrice": 80
+  },
+  {
+    "name": "Mbappe",
+    "position": "CF",
+    "basePrice": 100
+  },
+  {
+    "name": "Tonali",
+    "position": "DM",
+    "basePrice": 40
+  },
+  {
+    "name": "Alphonso Davies",
+    "position": "LB",
+    "basePrice": 60
+  },
+  {
+    "name": "Marc Casado",
+    "position": "DM",
+    "basePrice": 25
+  },
+  {
+    "name": "Denzel Dumfries",
+    "position": "RB",
+    "basePrice": 30
+  },
+  {
+    "name": "Cucurella",
+    "position": "LB",
+    "basePrice": 35
+  },
+  {
+    "name": "Trippier",
+    "position": "RB",
+    "basePrice": 30
+  },
+  {
+    "name": "Rafael Leao",
+    "position": "LW",
+    "basePrice": 80
+  },
+  {
+    "name": "Gabriel Magalhaes",
+    "position": "CB",
+    "basePrice": 65
+  },
+  {
+    "name": "Leon Goretzka",
+    "position": "CM",
+    "basePrice": 20
+  },
+  {
+    "name": "Riccardo Calafiori",
+    "position": "LB",
+    "basePrice": 40
+  },
+  {
+    "name": "Dani Olmo",
+    "position": "AM",
+    "basePrice": 50
+  },
+  {
+    "name": "Declan Rice",
+    "position": "DM",
+    "basePrice": 100
+  },
+  {
+    "name": "Phil Foden",
+    "position": "RW",
+    "basePrice": 70
+  },
+  {
+    "name": "Watkins",
+    "position": "CF",
+    "basePrice": 60
+  },
+  {
+    "name": "Casemiro",
+    "position": "DM",
+    "basePrice": 20
+  },
+  {
+    "name": "David Raya",
+    "position": "GK",
+    "basePrice": 50
+  },
+  {
+    "name": "Antoine Griezmann",
+    "position": "CF",
+    "basePrice": 20
+  },
+  {
+    "name": "Dean Huijsen",
+    "position": "CB",
+    "basePrice": 50
+  },
+  {
+    "name": "Alessandro Bastoni",
+    "position": "CB",
+    "basePrice": 65
+  },
+  {
+    "name": "William Saliba",
+    "position": "CB",
+    "basePrice": 70
+  },
+  {
+    "name": "Pedri",
+    "position": "CM",
+    "basePrice": 100
+  },
+  {
+    "name": "Arda Guler",
+    "position": "RW",
+    "basePrice": 40
+  },
+  {
+    "name": "Vitinha",
+    "position": "CM",
+    "basePrice": 80
+  },
+  {
+    "name": "Fabian Ruiz",
+    "position": "CM",
+    "basePrice": 40
+  },
+  {
+    "name": "Joan Garcia",
+    "position": "GK",
+    "basePrice": 20
+  },
+  {
+    "name": "Jurrien Timber",
+    "position": "RB",
+    "basePrice": 35
+  },
+  {
+    "name": "Mac Allister",
+    "position": "CM",
+    "basePrice": 80
+  },
+  {
+    "name": "Lewandowski",
+    "position": "CF",
+    "basePrice": 20
+  },
+  {
+    "name": "Luka Modric",
+    "position": "CM",
+    "basePrice": 50
+  },
+  {
+    "name": "Mamadarshvili",
+    "position": "GK",
+    "basePrice": 35
+  },
+  {
+    "name": "Mitoma",
+    "position": "LW",
+    "basePrice": 40
+  },
+  {
+    "name": "Enzo Fernandez",
+    "position": "CM",
+    "basePrice": 65
+  },
+  {
+    "name": "Ryan Gravenberch",
+    "position": "DM",
+    "basePrice": 60
+  },
+  {
+    "name": "L Martinez",
+    "position": "CF",
+    "basePrice": 85
+  },
+  {
+    "name": "Federico Dimarco",
+    "position": "LB",
+    "basePrice": 50
+  },
+  {
+    "name": "Benjamin Pavard",
+    "position": "CB",
+    "basePrice": 40
+  },
+  {
+    "name": "Lewis Skelly",
+    "position": "LB",
+    "basePrice": 15
+  },
+  {
+    "name": "Martin \u00d8degaard",
+    "position": "CM",
+    "basePrice": 60
+  },
+  {
+    "name": "Rodri",
+    "position": "DM",
+    "basePrice": 100
+  },
+  {
+    "name": "Vinicius",
+    "position": "LW",
+    "basePrice": 100
+  },
+  {
+    "name": "Ben White",
+    "position": "RB",
+    "basePrice": 50
+  },
+  {
+    "name": "Andy Robertson",
+    "position": "LB",
+    "basePrice": 20
+  },
+  {
+    "name": "Kvaratskhelia",
+    "position": "LW",
+    "basePrice": 75
+  },
+  {
+    "name": "Barcola",
+    "position": "LW",
+    "basePrice": 60
+  },
+  {
+    "name": "M Zubemendi",
+    "position": "DM",
+    "basePrice": 45
+  },
+  {
+    "name": "Rashford",
+    "position": "LW",
+    "basePrice": 70
+  },
+  {
+    "name": "Harry Maguire",
+    "position": "CB",
+    "basePrice": 20
+  },
+  {
+    "name": "Dembele",
+    "position": "RW",
+    "basePrice": 90
+  },
+  {
+    "name": "Theo Hern\u00e1ndez",
+    "position": "LB",
+    "basePrice": 50
+  },
+  {
+    "name": "Pedro Porro",
+    "position": "RB",
+    "basePrice": 40
+  },
+  {
+    "name": "Eric Garc\u00eda",
+    "position": "CB",
+    "basePrice": 20
+  },
+  {
+    "name": "Kyle Walker",
+    "position": "RB",
+    "basePrice": 40
+  },
+  {
+    "name": "Reece James",
+    "position": "RB",
+    "basePrice": 40
+  },
+  {
+    "name": "Guehi",
+    "position": "CB",
+    "basePrice": 50
+  },
+  {
+    "name": "Gakpo",
+    "position": "LW",
+    "basePrice": 60
+  },
+  {
+    "name": "Jo\u0161ko Gvardiol",
+    "position": "LB",
+    "basePrice": 40
+  },
+  {
+    "name": "Pau Cubars\u00ed",
+    "position": "CB",
+    "basePrice": 60
+  },
+  {
+    "name": "Fede Valverde",
+    "position": "CM",
+    "basePrice": 80
+  },
+  {
+    "name": "Matthijs de Ligt",
+    "position": "CB",
+    "basePrice": 55
+  },
+  {
+    "name": "Fermin Lopez",
+    "position": "AM",
+    "basePrice": 50
+  },
+  {
+    "name": "Trent Alexander-Arnold",
+    "position": "RB",
+    "basePrice": 60
+  },
+  {
+    "name": "Kevin De Bruyne",
+    "position": "AM",
+    "basePrice": 80
+  },
+  {
+    "name": "Lisandro Mart\u00ednez",
+    "position": "CB",
+    "basePrice": 40
+  },
+  {
+    "name": "Jules Kounde",
+    "position": "RB",
+    "basePrice": 50
+  },
+  {
+    "name": "\u00c9der Milit\u00e3o",
+    "position": "CB",
+    "basePrice": 60
+  },
+  {
+    "name": "Bruno Fernandes",
+    "position": "AM",
+    "basePrice": 70
+  },
+  {
+    "name": "Nuno Mendes",
+    "position": "LB",
+    "basePrice": 50
+  },
+  {
+    "name": "Olise",
+    "position": "RW",
+    "basePrice": 50
+  },
+  {
+    "name": "Desire Doue",
+    "position": "LW",
+    "basePrice": 50
+  },
+  {
+    "name": "Nicolo Barella",
+    "position": "CM",
+    "basePrice": 50
+  },
+  {
+    "name": "Virgil van Dijk",
+    "position": "CB",
+    "basePrice": 60
+  },
+  {
+    "name": "Lamine Yamal",
+    "position": "RW",
+    "basePrice": 100
+  },
+  {
+    "name": "Martinelli",
+    "position": "LW",
+    "basePrice": 50
+  }
+]
